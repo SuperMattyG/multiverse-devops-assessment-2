@@ -1,20 +1,37 @@
 import csv
 #Author: matthew Gardner
 
-def get_input(filename):
-    #rows = []
-    #with open(filename, 'r') as f: #Open as readonly and then append
-    #    for line in f.readlines():
-    #        rows.append(line.strip().split(","))
-    #return rows
-    with open(filename, 'r') as f: #Open as readonly and then append
-        reader = csv.DictReader(f)
+#def get_input() - Covers this Ticket
+#Ticket #1:   Read a CSV file
+#Description: In your input script, create a function that will read data from a CSV file.
+#Objectives:  The results.csv data file can be successfully processed into an array.
+#             Each line of the file is read into a new array item.
+#             The file read method must be in a sub-module.
 
+#def get_input() - Covers this Ticket
+#Ticket #2:     Remove duplicate entries
+#Description:   Add functionality to your input script to ignore or remove any duplicate entries
+#from the input data.
+#Duplicates are based on the User Id field.
+#Objectives:    A final array is created with duplicate entries removed.
+#               Where duplicates are found, the first entry is retained.
+
+def get_input(filename):
+
+    with open(filename, 'r') as f: #Open the input file
+        
+        #Read the CSV file into a list of dictionaries
+        reader = csv.DictReader(f)
+        
+        #Create a set to store unique values
         unique_values = set()
 
+        #Iterate over each row in the input file
         for row in reader:
+            #Get the value of the field to check for duplicates
             field_value = row ['user_id']
-
+            
+            #If the value has not already been seen, add it to the set and write the row to the output file
             if field_value not in unique_values:
                 unique_values.add(field_value)
                 print(row)
@@ -24,20 +41,3 @@ def file_exists(filename):
         open(filename)
     except FileNotFoundError:
         print("File not found")
-
-
-#def get_input(filename):
-#    rows = []
-#    with open(filename, 'r') as f: #Open as readonly and then append
-#        for line in f.readlines():
-#            rows.append(line.strip().split(","))
-#    return rows
-
-#with open('file') as f:
-#    seen = set()
-#    for line in f:
-#        line_lower = line.lower()
-#        if line_lower in seen:
-#            print(line)
-#        else:
-#            seen.add(line_lower)
