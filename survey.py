@@ -1,5 +1,5 @@
 import sys
-from extract import get_input, file_exists
+from extract import get_input, file_exists, capitalize_names, validate
 
 def get_args():
     try:
@@ -16,9 +16,11 @@ def get_args():
 def main():
     filename = get_args() #Get filename for sys arg
     file_exists(filename) # Check if file exists
-    mylist = get_input(filename)
-    print(mylist)
-    #capitalize_name(mylist)
+    final_list = get_input(filename)
+    capitalized_list = capitalize_names(final_list)
+    validated_list = validate(capitalized_list)
+
+    print(validated_list)
 
 
 

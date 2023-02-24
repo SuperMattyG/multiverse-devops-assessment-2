@@ -22,16 +22,10 @@ import csv
 #               input data file.
 #Objectives:    A final array is created with any empty lines omitted.
 
-#Ticket #4:     Capitalise user name fields
-#Description:   Add functionality to your input script to automatically capitalise the first_name
-#               and last_name fields found in the input data.
-#Objectives:    All names are capitalised in all data entries
-
 def get_input(filename):
 
     #Initialise list that values will be appneded to
     cleansed_list=[]
-    final_list=['user_id','first_name','last_name','answer_1','answer_2','answer_3']
 
     with open(filename, 'r') as f: #Open the input file
         
@@ -54,20 +48,8 @@ def get_input(filename):
                 if len(field_value) > 0:
                     unique_values.add(field_value)
                     cleansed_list.append(row)
-        
-        #Ticket #4: capitilize name field
-        #changing from list of dictionaries to a final list
-        i = 0
-        for rows in cleansed_list:
-            final_list.append(cleansed_list[i]['user_id'])
-            final_list.append(cleansed_list[i]['first_name'].capitalize())
-            final_list.append(cleansed_list[i]['last_name'].capitalize())
-            final_list.append(cleansed_list[i]['answer_1'])
-            final_list.append(cleansed_list[i]['answer_2'])
-            final_list.append(cleansed_list[i]['answer_3'])
-            i += 1
-
-    return list(final_list)
+    
+    return list(cleansed_list)
 
 def file_exists(filename):
     try:
@@ -76,8 +58,35 @@ def file_exists(filename):
         print("File not found")
     return
 
-def capitalize_name():
-    for capitilized_list in cleansed_list:
-        #capitilized_list[0] = capitilized_list[0]
-        print(cleansed_list[2])
-    return
+
+#Ticket #4:     Capitalise user name fields
+#Description:   Add functionality to your input script to automatically capitalise the first_name
+#               and last_name fields found in the input data.
+#Objectives:    All names are capitalised in all data entries
+
+def capitalize_names(lowercase_list):
+
+    for item in lowercase_list:
+        item['first_name'] = item['first_name'].capitalize()
+        item['last_name'] = item['last_name'].capitalize()
+
+    return list(lowercase_list)
+
+
+#Ticket #5:     Validate the responses to answer 3
+#Description:   Update your input script to validate the responses to the third answer field.
+#               This answer must have a numeric value between 1 and 10.
+#               Any rows with an invalid value are ignored.
+#Objectives:    A final array is created with the input data excluding any rows where
+#               answer 3 is invalid.
+#               No answer 3 values will be outside the range of 1 to 10
+
+def validate(input_list):
+
+    validated_list = []
+
+    for item in input_list:
+        if int(item['answer_3']) >= 1 and int(item['answer_3']) <= 10:
+            validated_list.append(item)
+            
+    return list(validated_list)
