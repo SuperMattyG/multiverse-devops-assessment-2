@@ -16,7 +16,16 @@ import csv
 #Objectives:    A final array is created with duplicate entries removed.
 #               Where duplicates are found, the first entry is retained.
 
+#def get_input() - Covers this Ticket
+#Ticket #3:     Ignore empty lines
+#Description:   Update your input script to ignore any empty lines found when reading in the
+#               input data file.
+#Objectives:    A final array is created with any empty lines omitted.
+
 def get_input(filename):
+
+    #Initialise list that values will be appneded to
+    expected_output=[]
 
     with open(filename, 'r') as f: #Open the input file
         
@@ -33,8 +42,15 @@ def get_input(filename):
             
             #If the value has not already been seen, add it to the set and write the row to the output file
             if field_value not in unique_values:
-                unique_values.add(field_value)
-                print(row)
+                #If statement to cover off Ticket 3.  Will ignore empty lines
+                if len(field_value) > 0:
+                    unique_values.add(field_value)
+                    #print(row)
+                    expected_output.append(row)
+    
+    #Print final list of values.
+    print(expected_output)
+
 
 def file_exists(filename):
     try:
