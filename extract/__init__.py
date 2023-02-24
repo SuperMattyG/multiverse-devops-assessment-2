@@ -90,3 +90,25 @@ def validate(input_list):
             validated_list.append(item)
             
     return list(validated_list)
+
+#Ticket #6:     Output the cleansed result data to a new file
+#Description:   Add functionality to your input script to output the cleansed data to a new CSV
+#               file.
+#Objectives:    A new file is created called clean_results.csv.
+#               The file is recreated on each execution.
+#               No invalid or unformatted data is present in the new file.
+
+def writedata(final_list):
+
+    filename = 'clean_results.csv'  #Define the file name
+    headers = ['user_id', 'first_name', 'last_name', 'answer_1', 'answer_2', 'answer_3'] #set the headers
+
+    with open(filename, 'w', newline = '') as file: #Open the file for writing(w)
+        writer = csv.DictWriter(file, fieldnames=headers)   #Create a csv writer
+        writer.writeheader()    #Write the header row
+
+        #Write each row with data
+        for row in final_list:
+            writer.writerow(row)
+
+    return
