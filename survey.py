@@ -27,8 +27,5 @@ def main():
         print_stdout(final_list)
 
     
-
-
-
 if __name__ == '__main__':
     sys.exit(main())
