@@ -1,7 +1,7 @@
 #Author:      Matthew Gardner
-import os
+import os, subprocess
 
-from extract import get_input, capitalize_names, validate, writedata, print_stdout
+from extract import get_input, capitalize_names, validate, writedata, print_stdout, file_exists
 
 #Ticket #1:   Read a CSV file
 #Description: In your input script, create a function that will read data from a CSV file.
@@ -115,4 +115,30 @@ def test_print_stdout():
 
     #Assert
     assert expected_output == output
+    return
+
+def test_file_exists():
+    #Arrange
+    filename = "testfile.csv"
+    expected_output = file_exists(filename)
+
+    with open("testfile.csv", "r") as f:
+        expected_output = f.read()
+    assert expected_output == "1,2,3"
+
+    return
+
+def test_main_missing_arg():
+    result = subprocess.run(["python", "survey.py"], capture_output=True, text=True)
+    assert "Please provide 1 argument" in result.stdout
+    return
+
+def test_main_with_arg1():
+    result = subprocess.run(["python", "survey.py", "results.csv"], capture_output=True, text=True)
+    assert "" in result.stdout
+    return
+
+def test_main_with_arg2():
+    result = subprocess.run(["python", "survey.py", "clean_results.csv"], capture_output=True, text=True)
+    assert "" in result.stdout
     return

@@ -51,6 +51,7 @@ def get_input(filename):
     
     return list(cleansed_list)
 
+#Checks if file exists
 def file_exists(filename):
     try:
         open(filename)
