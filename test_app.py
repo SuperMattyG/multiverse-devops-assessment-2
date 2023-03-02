@@ -1,6 +1,7 @@
 #Author:      Matthew Gardner
+import os
 
-from extract import get_input, capitalize_names, validate, writedata
+from extract import get_input, capitalize_names, validate, writedata, print_stdout
 
 #Ticket #1:   Read a CSV file
 #Description: In your input script, create a function that will read data from a CSV file.
@@ -41,7 +42,7 @@ def test_input_is_correct():
 #Objectives:    A final array is created with duplicate entries removed.
 #               Where duplicates are found, the first entry is retained.
 
-def unique_keys():
+def test_unique_keys():
     #Arrange
     filename = "results.csv"
     expected_output = 20
@@ -50,7 +51,7 @@ def unique_keys():
     output = get_input(filename)
 
     #Assert
-    assert len(output.keys('user_id')) == expected_output
+    assert len(output) == expected_output
     return
 
 #Ticket #5:     Validate the responses to answer 3
@@ -61,7 +62,7 @@ def unique_keys():
 #               answer 3 is invalid.
 #               No answer 3 values will be outside the range of 1 to 10
 
-def answer3_validation():
+def test_answer3_validation():
     #Arrange
     filename = "results.csv"
     final_list = get_input(filename)
@@ -84,32 +85,34 @@ def answer3_validation():
 #               The file is recreated on each execution.
 #               No invalid or unformatted data is present in the new file.
 
-def does_output_exist():
+def test_does_output_exist():
     #Arrange
-    filename = "results.csv"
-    final_list = get_input(filename)
+    final_list = get_input("results.csv")
     capitalized_list = capitalize_names(final_list)
     validated_list = validate(capitalized_list)
-    expected_output = writedata(validated_list)
+        
+    #Act
+    writedata(validated_list)
 
-#    #Act
-    output = "clean_results.csv"
+    #Assert
+    assert os.path.exists(os.path.join("clean_results.csv"))
+    return
+
+#Ticket #7:     Create an output script
+#Description:   A new output script will be created which reads in the clean_results.csv CSV
+#               file and outputs the results to the command line, row by row.
+#Objectives:    The script uses the existing sub-module to read the CSV file.
+#               The printed output will contain all row data and an appropriate header.
+#               Stretch: The printed output will be formatted with fixed length strings.
+
+def test_print_stdout():
+    #Arrange
+    final_list = get_input("clean_results.csv")
+    expected_output = type(print_stdout(final_list))
+
+    #Act
+    output = dict
 
     #Assert
     assert expected_output == output
     return
-
-#def writedata(final_list):
-
-#    filename = 'clean_results.csv'  #Define the file name
-#    headers = ['user_id', 'first_name', 'last_name', 'answer_1', 'answer_2', 'answer_3'] #set the headers
-
-#    with open(filename, 'w', newline = '') as file: #Open the file for writing(w)
-#        writer = csv.DictWriter(file, fieldnames=headers)   #Create a csv writer
-#        writer.writeheader()    #Write the header row
-
-#        #Write each row with data
-#        for row in final_list:
-#            writer.writerow(row)
-
-#    return

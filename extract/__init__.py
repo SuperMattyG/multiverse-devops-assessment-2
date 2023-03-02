@@ -128,4 +128,4 @@ def print_stdout(final_list):
 
     for item in final_list:
         print(f'{item["user_id"]:<{length}}',f'{item["first_name"]:<{length}}',f'{item["last_name"]:<{length}}',f'{item["answer_1"]:<{length}}',f'{item["answer_2"]:<{length}}',f'{item["answer_3"]:<{length}}',)
-    return
+    return item
