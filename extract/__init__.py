@@ -112,3 +112,20 @@ def writedata(final_list):
             writer.writerow(row)
 
     return
+
+#Ticket #7:     Create an output script
+#Description:   A new output script will be created which reads in the clean_results.csv CSV
+#               file and outputs the results to the command line, row by row.
+#Objectives:    The script uses the existing sub-module to read the CSV file.
+#               The printed output will contain all row data and an appropriate header.
+#               Stretch: The printed output will be formatted with fixed length strings.
+
+def print_stdout(final_list):
+    
+    length=30
+    #':<' specifies that the string should be left justifiedand the number specified the length
+    print(f'{"user_id":<{length}}',f'{"first_name":<{length}}',f'{"last_name":<{length}}',f'{"answer_1":<{length}}',f'{"answer_2":<{length}}',f'{"answer_3":<{length}}',)
+
+    for item in final_list:
+        print(f'{item["user_id"]:<{length}}',f'{item["first_name"]:<{length}}',f'{item["last_name"]:<{length}}',f'{item["answer_1"]:<{length}}',f'{item["answer_2"]:<{length}}',f'{item["answer_3"]:<{length}}',)
+    return
